@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#100d16">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Music Room">
 <title>Music Room ♡</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
@@ -130,6 +136,7 @@ function playNext(direction=1){let list=activeSongs();if(!list.length)return;let
 $("playBtn").addEventListener("click",()=>{if(!currentSongId){const s=activeSongs()[0];if(s)playSong(s);return}if(!playerReady){const s=songs.find(x=>x.id===currentSongId);if(s)playSong(s);return}if(isPlaying)player.pauseVideo();else player.playVideo()});
 $("nextBtn").addEventListener("click",()=>playNext(1));$("prevBtn").addEventListener("click",()=>{if(playerReady&&player.getCurrentTime()>3){player.seekTo(0,true);return}playNext(-1)});$("shuffleBtn").addEventListener("click",()=>{shuffle=!shuffle;renderPlayer()});$("repeatBtn").addEventListener("click",()=>{repeat=!repeat;renderPlayer()});$("queueBtn").addEventListener("click",()=>$("queuePanel").classList.toggle("hidden"));$("closeQueue").addEventListener("click",()=>$("queuePanel").classList.add("hidden"));
 boot();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
 </body>
 </html>
